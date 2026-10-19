@@ -1,57 +1,80 @@
 # Bibliotecas Conectadas — API
 
-Backend do Projeto Integrador IV — Ciências da Computação (UNIVESP), responsável pela gestão bibliográfica, autenticação, circulação, integração por ISBN e camada analítica utilizada pelo Dashboard e pelo Power BI.
+Backend da plataforma **Bibliotecas Conectadas**, voltada à gestão das bibliotecas
+públicas municipais de Santos/SP.
 
-A aplicação usa Django 5, Django REST Framework e PostgreSQL em produção.
+Este repositório é utilizado pelo **Grupo 1 do Projeto Integrador em Computação VI
+(PJI610 — DRP02)** da Universidade Virtual do Estado de São Paulo, no desenvolvimento
+do módulo analítico de apoio à gestão.
 
-## Arquitetura atual
+A aplicação usa Django 5, Django REST Framework e PostgreSQL.
 
-- **Backend:** Django 5 + Django REST Framework.
-- **Banco de dados em produção:** PostgreSQL/Neon.
-- **Hospedagem da API:** Render.
-- **Frontend:** Vercel.
-- **Power BI:** Power BI Service, consumindo endpoint analítico autenticado.
-- **Desenvolvimento local:** SQLite como fallback quando `DATABASE_URL` não está definida.
+---
 
-## Funcionalidades principais
+## Créditos e origem
 
-- autenticação por token;
-- gestão de unidades/bibliotecas;
-- gestão de livros e exemplares;
-- gestão de usuários/leitores;
-- empréstimos e devoluções;
-- gestão de contas de acesso administrativas;
-- consulta assistida por ISBN;
-- indicadores operacionais agregados;
-- camada territorial com dados do IBGE;
-- dataset específico para Power BI sem identificadores pessoais de leitores.
+A base deste sistema foi desenvolvida em projetos integradores anteriores:
 
-## Requisitos
+- **PI III** — construção da plataforma de gestão de unidades, acervo e empréstimos,
+  por Cláudio Alexandre dos Santos, Julian Geiger Nunes, Larissa Martins Gonçalves e equipe.
+- **PI IV** — camada analítica territorial com dados do IBGE e integração com Power BI,
+  pelo grupo do Projeto Integrador IV.
+- **PI VI** — módulo de indicadores de gestão integrado à plataforma, por este grupo.
 
-- Python 3.10 ou superior;
-- PostgreSQL recomendado para ambiente persistente;
-- SQLite disponível como fallback local.
+O repositório de origem é [ClaudioProg/biblio.webapi](https://github.com/ClaudioProg/biblio.webapi).
+Esta é uma cópia independente, com banco de dados e hospedagem próprios, para que o
+desenvolvimento do PI VI não afete o ambiente em produção dos projetos anteriores.
 
-## Execução local
+---
+
+## Arquitetura
+
+| Camada | Tecnologia |
+|---|---|
+| Backend | Django 5 + Django REST Framework |
+| Banco de dados | PostgreSQL (Neon) |
+| Hospedagem da API | Render |
+| Frontend | Web Components + Vite, hospedado na Vercel |
+| Documentação da API | OpenAPI via drf-spectacular |
+
+O código do app `gestor` segue arquitetura em camadas:
+
+```
+src/gestor/
+├── domain/
+│   ├── entities/        → modelos de dados
+│   └── repositories/    → acesso a dados
+├── application/         → casos de uso
+├── infrastructure/      → serviços externos (ISBN, tradução, território)
+├── presentation/        → views, serializers e rotas
+└── migrations/          → migrações do banco
+```
+
+Ao acrescentar funcionalidades, respeite essa separação: entidade em `domain/entities`,
+regra de negócio em `application`, endpoint em `presentation`.
+
+---
+
+## Como rodar localmente
 
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/ClaudioProg/biblio.webapi.git
-cd biblio.webapi
+git clone https://github.com/larissalmg/biblio-webapi-pi6.git
+cd biblio-webapi-pi6
 ```
 
-### 2. Criar ambiente virtual e instalar dependências
+### 2. Criar o ambiente virtual e instalar as dependências
 
-Windows:
+**Windows (PowerShell):**
 
-```bash
-python -m venv venv
+```powershell
+py -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Linux/macOS:
+**Linux / macOS:**
 
 ```bash
 python3 -m venv venv
@@ -59,179 +82,137 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Configurar ambiente
+### 3. Configurar o ambiente
 
-Exemplo mínimo para desenvolvimento:
+Copie o arquivo de exemplo e preencha os valores:
 
-```env
-DATABASE_URL=
-SECRET_KEY=chave-local
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-CSRF_TRUSTED_ORIGINS=http://localhost:5173
-CORS_ALLOWED_ORIGINS=http://localhost:5173
+```bash
+cp .env.example .env
 ```
 
-Se `DATABASE_URL` estiver vazia, a aplicação usa SQLite local.
+Para começar, basta deixar a `DATABASE_URL` em branco — a aplicação usa SQLite local
+automaticamente. Para trabalhar com o banco compartilhado do grupo, peça a string de
+conexão a quem administra o projeto no Neon.
 
-### 4. Aplicar migrações
+> O arquivo `.env` **nunca** deve ser versionado.
+
+### 4. Aplicar as migrações
 
 ```bash
 python manage.py migrate
 ```
 
-### 5. Executar
+As migrações já populam o catálogo inicial: as **6 unidades** do Sistema Municipal de
+Bibliotecas de Santos e **100 livros** de exemplo.
+
+### 5. Criar um usuário administrador
+
+```bash
+python manage.py createsuperuser
+```
+
+### 6. Executar
 
 ```bash
 python manage.py runserver
 ```
 
-Também pode ser usado:
+A API sobe em `http://localhost:8000`.
+A documentação interativa fica em `http://localhost:8000/api/docs/`.
 
-```bash
-python run.py dev
-```
-
-## Variáveis de ambiente relevantes
-
-### Banco e segurança
-
-- `DATABASE_URL`
-- `DATABASE_SSL_REQUIRE`
-- `SECRET_KEY`
-- `DEBUG`
-- `ALLOWED_HOSTS`
-- `CSRF_TRUSTED_ORIGINS`
-- `CORS_ALLOWED_ORIGINS`
-
-### ISBN e tradução
-
-- `OPENLIBRARY_BASE_URL`
-- `OPENLIBRARY_TIMEOUT_SECONDS`
-- `OPENLIBRARY_USER_AGENT`
-- `OPENLIBRARY_CONTACT_EMAIL`
-- `BRASILAPI_BASE_URL`
-- `BRASILAPI_TIMEOUT_SECONDS`
-- `GOOGLE_BOOKS_BASE_URL`
-- `GOOGLE_BOOKS_TIMEOUT_SECONDS`
-- `GOOGLE_BOOKS_API_KEY`
-- `ISBN_LOOKUP_CACHE_TTL_SECONDS`
-- `GOOGLE_TRANSLATE_ENABLED`
-- `GOOGLE_TRANSLATE_API_KEY`
-- `MYMEMORY_BASE_URL`
-- `MYMEMORY_CONTACT_EMAIL`
-- `TRANSLATION_SOURCE_LANG`
-- `TRANSLATION_TARGET_LANG`
-- `TRANSLATION_FIELDS`
-
-### Conta técnica do Power BI
-
-- `BIBLIO_POWERBI_USERNAME`
-- `BIBLIO_POWERBI_PASSWORD`
-- `BIBLIO_POWERBI_EMAIL`
-
-Essas variáveis criam/atualizam a conta técnica pertencente ao grupo `powerbi_reader`.
-
-A senha nunca deve ser versionada. A autenticação Básica é aceita somente no endpoint analítico destinado ao Power BI; as rotas operacionais continuam protegidas pela autenticação por token do DRF.
+---
 
 ## Endpoints principais
 
 ### Autenticação
-
-- `POST /gestor/auth/login/`
-- `POST /gestor/auth/logout/`
-- `GET /gestor/auth/me/`
-- `POST /gestor/auth/change-password/`
+```
+POST   /gestor/auth/login/
+POST   /gestor/auth/logout/
+GET    /gestor/auth/me/
+POST   /gestor/auth/change-password/
+```
 
 ### Gestão
+```
+/gestor/livros/
+/gestor/unidades/
+/gestor/livro-unidades/
+/gestor/usuarios/
+/gestor/emprestimos/
+/gestor/acessos/
+```
 
-- `/gestor/livros/`
-- `/gestor/unidades/`
-- `/gestor/livro-unidades/`
-- `/gestor/usuarios/`
-- `/gestor/emprestimos/`
-- `/gestor/acessos/`
-
-Os endpoints registrados pelo DRF oferecem as operações compatíveis com cada recurso.
-
-### ISBN
-
-- `GET /gestor/livros/isbn-lookup/?isbn={isbn}`
-
-O serviço consulta provedores configurados e devolve metadados normalizados para pré-preenchimento do formulário.
+### Consulta por ISBN
+```
+GET /gestor/livros/isbn-lookup/?isbn={isbn}
+```
 
 ### Analytics
-
-- `GET /gestor/analytics/resumo/`
-  - indicadores operacionais agregados usados pelo Dashboard.
-
-- `GET /gestor/analytics/territorio/`
-  - indicadores territoriais do IBGE para Santos/SP.
-
-- `GET /gestor/analytics/powerbi/`
-  - dataset agregado destinado ao Power BI;
-  - suporta autenticação Básica da conta técnica `powerbi_reader`;
-  - não contém nome, e-mail, documento ou outro identificador pessoal de leitores.
-
-## Power BI
-
-O pacote versionado em `powerbi/` contém:
-
-- projeto PBIP;
-- modelo semântico;
-- definição das cinco páginas do relatório;
-- consultas Power Query;
-- medidas DAX;
-- documentação da fonte e da publicação.
-
-O relatório foi publicado no Power BI Service e é incorporado ao frontend pela modalidade segura **Site ou portal**.
-
-Não utilizar **Publicar na Web** para esse relatório.
-
-Detalhes completos:
-
-`powerbi/README.md`
-
-## IBGE — Censo Demográfico 2022
-
-A camada territorial está documentada em:
-
-`docs/pi4/ibge-inventario-fontes.md`
-
-O recorte confirmado atual usa 55 bairros de Santos/SP, preservando diferenças entre universos estatísticos e valores ausentes.
-
-Os dados territoriais são usados para contextualização descritiva. Não devem ser convertidos automaticamente em inferências de preferência literária ou demanda de acervo.
-
-## Estrutura resumida
-
 ```
-biblio.webapi/
-├── config/
-├── data/
-│   └── pi4/
-├── docs/
-│   └── pi4/
-├── powerbi/
-│   ├── pbip/
-│   └── queries/
-├── scripts/
-│   └── pi4/
-├── src/
-│   └── gestor/
-├── manage.py
-├── requirements.txt
-└── README.md
+GET /gestor/analytics/resumo/        indicadores operacionais agregados
+GET /gestor/analytics/territorio/    indicadores territoriais do IBGE (Santos/SP)
+GET /gestor/analytics/powerbi/       dataset agregado, sem identificadores pessoais
 ```
 
-## Produção
+---
 
-- API: `https://biblio-webapi.onrender.com`
-- Frontend: `https://bibliotecasconectadas.vercel.app`
+## Modelo de dados
+
+| Entidade | Descrição |
+|---|---|
+| `Unidade` | Biblioteca ou equipamento de leitura, com dados territoriais do IBGE |
+| `Livro` | Obra do acervo, com gênero, tipo de obra e idioma |
+| `LivroUnidade` | Relação entre obra e unidade, com o número de exemplares |
+| `Usuario` | Leitor cadastrado |
+| `Emprestimo` | Movimentação de empréstimo e devolução |
+| `Genero`, `TipoObra`, `Autor`, `Editora` | Tabelas auxiliares de classificação |
+
+---
+
+## Fluxo de trabalho no repositório
+
+O ramo `main` é protegido. Nenhuma alteração entra diretamente nele.
+
+```bash
+git checkout main
+git pull
+git checkout -b feat/nome-da-funcionalidade
+# ... desenvolve, testa ...
+git add .
+git commit -m "feat: descrição curta do que foi feito"
+git push -u origin feat/nome-da-funcionalidade
+```
+
+Depois, abra um **Pull Request** no GitHub descrevendo o que foi alterado.
+
+**Convenção de nomes de ramo:**
+
+| Prefixo | Uso |
+|---|---|
+| `feat/` | nova funcionalidade |
+| `fix/` | correção de defeito |
+| `docs/` | documentação |
+| `chore/` | manutenção, configuração, limpeza |
+
+---
 
 ## Segurança e privacidade
 
-- rotas operacionais protegidas por autenticação;
-- CORS restrito às origens previstas;
-- credenciais e segredos apenas em variáveis de ambiente;
-- dataset analítico do Power BI sem dados pessoais de leitores;
-- dados territoriais provenientes de fontes públicas oficiais do IBGE.
+- Rotas operacionais protegidas por autenticação por token.
+- CORS restrito às origens previstas.
+- Credenciais e segredos apenas em variáveis de ambiente, nunca versionados.
+- O painel analítico opera exclusivamente com **dados agregados**: os registros de
+  empréstimo vinculam pessoas identificadas às obras que consultam, e esse vínculo
+  não é exposto, em observância à Lei Geral de Proteção de Dados Pessoais
+  (Lei nº 13.709/2018).
+- Dados territoriais provenientes de fontes públicas oficiais do IBGE.
+
+---
+
+## Documentação complementar
+
+| Caminho | Conteúdo |
+|---|---|
+| `docs/pi4/` | documentação da camada territorial e do Power BI (PI IV) |
+| `powerbi/` | projeto PBIP, modelo semântico e consultas (PI IV) |
+| `/api/docs/` | documentação interativa da API, gerada automaticamente |
