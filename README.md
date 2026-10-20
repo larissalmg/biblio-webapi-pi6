@@ -120,6 +120,62 @@ python manage.py runserver
 A API sobe em `http://localhost:8000`.
 A documentação interativa fica em `http://localhost:8000/api/docs/`.
 
+### Docker
+
+#### Instalar no Ubuntu
+
+Instale o Docker Engine e o plugin Docker Compose V2 disponibilizados pelos repositórios do Ubuntu:
+
+```bash
+sudo apt-get update
+sudo apt-get install docker.io docker-compose-v2
+```
+
+Habilite e inicie o serviço do Docker:
+
+```bash
+sudo systemctl enable --now docker
+```
+
+Verifique a instalação. Os comandos Docker abaixo usam `sudo` para acessar o daemon:
+
+```bash
+sudo docker --version
+sudo docker compose version
+sudo docker run hello-world
+```
+
+#### Iniciar o projeto
+
+Na raiz do repositório, crie `.env` a partir do exemplo `.env.example` somente se ainda não existir:
+
+```bash
+[ -f .env ] || cp .env.example .env
+```
+
+Configure o `.env` conforme o tutorial
+
+```bash
+sudo docker compose up --build -d
+sudo docker ps
+```
+
+Para só iniciar o frontend
+
+```bash
+sudo docker compose up -d
+sudo docker ps
+```
+
+O servidor de desenvolvimento do Vite ficará disponível em `http://localhost:8000`. O arquivo `.env` e a pasta `src/` são montados diretamente do host; alterações em `src/` são refletidas pelo Vite. O frontend é executado separadamente. O alias `biblioteca-host` resolve, de dentro do container, para o gateway da máquina host. Use `http://biblioteca-host:<porta>` para alcançar um serviço do host na porta em que ele estiver ouvindo; o Compose não publica nem libera portas automaticamente. As chamadas feitas pelo navegador do usuário precisam usar um hostname acessível pelo próprio navegador.
+
+Para acompanhar os logs ou encerrar os containers:
+
+```bash
+sudo docker compose logs -f api
+sudo docker compose down
+```
+
 ---
 
 ## Endpoints principais
