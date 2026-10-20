@@ -17,6 +17,8 @@ services:
   api:
     build: .
     restart: unless-stopped
+    extra_hosts:
+      - "biblioteca-host:host-gateway"
     env_file:
       - .env
     environment:
