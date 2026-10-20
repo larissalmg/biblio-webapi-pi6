@@ -153,9 +153,7 @@ Na raiz do repositório, crie `.env` a partir do exemplo `.env.example` somente 
 [ -f .env ] || cp .env.example .env
 ```
 
-Configure `VITE_API_URL` no `.env` com a URL raiz do backend, sem acrescentar `/gestor`. Para produção, o padrão é `https://biblio-webapi.onrender.com`.
-
-Construa e inicie o frontend:
+Configure o `.env` conforme o tutorial
 
 ```bash
 sudo docker compose up --build -d
