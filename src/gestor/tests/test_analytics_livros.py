@@ -162,6 +162,18 @@ class AnalyticsLivrosTests(APITestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn("circulacao_data_inicio", response.data["detail"])
 
+    def test_dashboard_rejects_invalid_circulation_date_format(self):
+        response = self.client.get(
+            "/gestor/analytics/gestao-livros/",
+            {
+                "circulacao_data_inicio": "2026-4-01",
+                "circulacao_data_fim": "2026-04-30",
+            },
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("AAAA-MM-DD", response.data["detail"])
+
     def test_dashboard_rejects_circulation_period_longer_than_36_months(self):
         response = self.client.get(
             "/gestor/analytics/gestao-livros/",
@@ -173,6 +185,50 @@ class AnalyticsLivrosTests(APITestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertIn("36 meses", response.data["detail"])
+
+    def test_dashboard_accepts_circulation_period_of_exactly_36_months(self):
+        response = self.client.get(
+            "/gestor/analytics/gestao-livros/",
+            {
+                "circulacao_data_inicio": "2023-05-01",
+                "circulacao_data_fim": "2026-04-30",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data["circulacao_mensal"]), 36)
+        self.assertEqual(
+            response.data["meta"]["periodo_circulacao"],
+            {"data_inicio": "2023-05-01", "data_fim": "2026-04-30"},
+        )
+
+    def test_dashboard_handles_empty_catalog_and_missing_comparison_baseline(self):
+        response = self.client.get(
+            "/gestor/analytics/gestao-livros/",
+            {
+                "circulacao_data_inicio": "2026-04-01",
+                "circulacao_data_fim": "2026-04-30",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["indicadores"]["titulos"], 0)
+        self.assertEqual(
+            response.data["qualidade_acervo"]["percentual_campos_preenchidos"],
+            0,
+        )
+        self.assertIsNone(
+            response.data["insights_acervo"]["categoria_mais_representada"]
+        )
+        self.assertIsNone(
+            response.data["insights_acervo"]["categoria_menor_representacao"]
+        )
+        self.assertEqual(response.data["livros_em_destaque"], [])
+        self.assertEqual(response.data["emprestimos_recentes"], [])
+        self.assertEqual(
+            response.data["comparativo_circulacao"]["variacao_percentual"],
+            {"emprestimos_iniciados": None, "devolucoes": None},
+        )
 
     def test_open_loan_without_unit_reduces_available_copies(self):
         livro = self._livro(isbn="9780000000103")
