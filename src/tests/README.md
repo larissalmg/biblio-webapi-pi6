@@ -1,6 +1,8 @@
 # Teste das rotas da API
 
-O script `test_api_routes.py` faz um smoke test das principais rotas HTTP da API. Ele autentica pelo endpoint de login e usa o token recebido para consultar as rotas protegidas.
+O script `test_api_routes.py` faz um smoke test das principais rotas HTTP da API.
+Ele solicita as credenciais, autentica pelo endpoint de login e só então consulta
+as rotas protegidas usando o token recebido.
 
 ## Pré-requisitos
 
@@ -13,7 +15,7 @@ O script `test_api_routes.py` faz um smoke test das principais rotas HTTP da API
 Na raiz do repositório, rode:
 
 ```bash
-python test/test_api_routes.py
+python3 -m src.tests.test_api_routes
 ```
 
 O script solicitará o usuário e a senha. A senha é digitada sem aparecer na tela e não é gravada pelo script.
@@ -21,13 +23,13 @@ O script solicitará o usuário e a senha. A senha é digitada sem aparecer na t
 Para usar outra URL base:
 
 ```bash
-python test/test_api_routes.py --base-url http://localhost:8000
+python3 -m src.tests.test_api_routes --base-url http://localhost:8000
 ```
 
 Também é possível consultar as opções com:
 
 ```bash
-python test/test_api_routes.py --help
+python3 -m src.tests.test_api_routes --help
 ```
 
 ## Rotas verificadas
@@ -43,8 +45,12 @@ Após autenticar, o script consulta:
 - `GET /gestor/analytics/resumo/`
 - `GET /gestor/analytics/territorio/`
 - `GET /gestor/analytics/powerbi/`
+- `GET /gestor/analytics/gestao-livros/`
+- `GET /gestor/analytics/gestao-livros/filtros/`
 
-O resultado informa se cada chamada teve sucesso e mostra contagens, sem imprimir os registros de usuários ou empréstimos.
+O resultado informa se cada chamada teve sucesso e mostra contagens, sem imprimir
+os registros de usuários ou empréstimos. As rotas de analytics são chamadas somente
+depois da autenticação bem-sucedida.
 
 ## Interpretação de erros
 

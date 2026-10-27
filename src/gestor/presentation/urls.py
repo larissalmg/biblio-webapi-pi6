@@ -34,6 +34,10 @@ urlpatterns = [
     path("auth/logout/", auth_logout, name="auth-logout"),
     path("auth/me/", auth_me, name="auth-me"),
     path("auth/change-password/", auth_change_password, name="auth-change-password"),
+    path(
+        "analytics/gestao-livros/",
+        include("gestor.presentation.analytics_livros"),
+    ),
     path("analytics/resumo/", analytics_resumo, name="analytics-resumo"),
     path("analytics/territorio/", analytics_territorio, name="analytics-territorio"),
     path("analytics/powerbi/", analytics_powerbi, name="analytics-powerbi"),

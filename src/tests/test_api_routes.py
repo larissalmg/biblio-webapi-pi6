@@ -9,7 +9,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
-ROUTES = (
+AUTHENTICATED_ROUTES = (
     "/gestor/livros/",
     "/gestor/unidades/",
     "/gestor/livro-unidades/",
@@ -19,8 +19,9 @@ ROUTES = (
     "/gestor/analytics/resumo/",
     "/gestor/analytics/territorio/",
     "/gestor/analytics/powerbi/",
+    "/gestor/analytics/gestao-livros/",
+    "/gestor/analytics/gestao-livros/filtros/",
 )
-
 
 def request_json(url, *, method="GET", token=None, payload=None):
     headers = {"Accept": "application/json"}
@@ -67,6 +68,19 @@ def response_count(path, data):
             counts[table] = len(rows)
         return f"tabelas {counts}"
 
+    if path == "/gestor/analytics/gestao-livros/":
+        indicators = data.get("indicadores")
+        if not isinstance(indicators, dict):
+            raise RuntimeError("Dashboard sem objeto válido 'indicadores'.")
+        return f"{indicators.get('titulos', 0)} títulos"
+
+    if path == "/gestor/analytics/gestao-livros/filtros/":
+        units = data.get("unidades")
+        categories = data.get("categorias")
+        if not isinstance(units, list) or not isinstance(categories, list):
+            raise RuntimeError("Filtros da dashboard sem listas válidas.")
+        return f"{len(units)} unidades, {len(categories)} categorias"
+
     if isinstance(data, list):
         return f"{len(data)} registros"
 
@@ -85,10 +99,10 @@ def main():
     args = parser.parse_args()
 
     base_url = args.base_url.rstrip("/")
-    username = input("Usuário da API: ").strip()
-    password = getpass.getpass("Senha da API: ")
 
     try:
+        username = input("Usuário da API: ").strip()
+        password = getpass.getpass("Senha da API: ")
         login = request_json(
             f"{base_url}/gestor/auth/login/",
             method="POST",
@@ -99,7 +113,7 @@ def main():
             raise RuntimeError("Login não retornou um token de autenticação.")
         print("POST /gestor/auth/login/ ... OK")
 
-        for path in ROUTES:
+        for path in AUTHENTICATED_ROUTES:
             data = request_json(f"{base_url}{path}", token=token)
             details = response_count(path, data)
             print(f"GET {path} ... OK ({details})")
