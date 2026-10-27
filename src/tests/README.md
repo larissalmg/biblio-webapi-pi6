@@ -61,41 +61,49 @@ abreviadas para até dois itens; os totais indicam a quantidade completa retorna
 
 ```json
 {
-	"meta": {
-		"escopo": "dados agregados da plataforma Bibliotecas Conectadas",
-		"contém_dados_pessoais": false,
-		"observacao": "Estes indicadores descrevem o acervo e a circulação registrada na plataforma. Não representam, por si só, a demanda sociodemográfica."
-	},
-	"resumo": {
-		"titulos": 100,
-		"exemplares": 965,
-		"unidades": 6,
-		"usuarios_ativos": 0,
-		"emprestimos_total": 0,
-		"emprestimos_abertos": 0,
-		"emprestimos_devolvidos": 0
-	},
-	"acervo_por_genero": [
-		{"genero": "Clássico", "titulos": 14, "exemplares": 136}
-	],
-	"acervo_por_tipo": [
-		{"tipo_obra": "Livro", "titulos": 100, "exemplares": 965}
-	],
-	"por_unidade": [
-		{
-			"unidade_id": 1,
-			"unidade": "Biblioteca Alberto Sousa",
-			"ibge_bairro_codigo": "3548500017",
-			"ibge_bairro_nome": "Centro",
-			"latitude": null,
-			"longitude": null,
-			"titulos": 49,
-			"exemplares": 170,
-			"emprestimos_total": 0,
-			"emprestimos_abertos": 0,
-			"emprestimos_devolvidos": 0
-		}
-	]
+  "meta": {
+    "escopo": "dados agregados da plataforma Bibliotecas Conectadas",
+    "contém_dados_pessoais": false,
+    "observacao": "Estes indicadores descrevem o acervo e a circulação registrada na plataforma. Não representam, por si só, a demanda sociodemográfica."
+  },
+  "resumo": {
+    "titulos": 100,
+    "exemplares": 965,
+    "unidades": 6,
+    "usuarios_ativos": 0,
+    "emprestimos_total": 0,
+    "emprestimos_abertos": 0,
+    "emprestimos_devolvidos": 0
+  },
+  "acervo_por_genero": [
+    {
+      "genero": "Clássico",
+      "titulos": 14,
+      "exemplares": 136
+    }
+  ],
+  "acervo_por_tipo": [
+    {
+      "tipo_obra": "Livro",
+      "titulos": 100,
+      "exemplares": 965
+    }
+  ],
+  "por_unidade": [
+    {
+      "unidade_id": 1,
+      "unidade": "Biblioteca Alberto Sousa",
+      "ibge_bairro_codigo": "3548500017",
+      "ibge_bairro_nome": "Centro",
+      "latitude": null,
+      "longitude": null,
+      "titulos": 49,
+      "exemplares": 170,
+      "emprestimos_total": 0,
+      "emprestimos_abertos": 0,
+      "emprestimos_devolvidos": 0
+    }
+  ]
 }
 ```
 
@@ -108,51 +116,51 @@ não cadastrados.
 
 ```json
 {
-	"meta": {
-		"fonte": "IBGE — Censo Demográfico 2022",
-		"municipio": "Santos",
-		"uf": "SP",
-		"codigo_municipio_ibge": "3548500",
-		"nivel_territorial": "bairro",
-		"gerado_de_fontes_oficiais_em": "2026-10-07",
-		"contem_dados_pessoais": false,
-		"observacao": "Os dados caracterizam o território e não constituem, isoladamente, evidência de preferência ou demanda literária."
-	},
-	"cobertura": {
-		"bairros_total": 55,
-		"bairros_com_demografia": 55,
-		"bairros_com_alfabetizacao": 55,
-		"bairros_com_renda": 55,
-		"bairros_com_faixas_etarias_completas": 55,
-		"bairros_com_taxa_alfabetizacao": 55,
-		"bairros_sem_renda": 0
-	},
-	"validacao": {
-		"diferencas_total_basico_demografia": 8,
-		"diferencas_total_demografia_faixas_etarias": 22,
-		"renda_ausente_eh_zero": false
-	},
-	"bairros": [
-		{
-			"cd_bairro": "3548500001",
-			"bairro": "José Menino",
-			"area_km2": 0.6800466,
-			"populacao_total": 11209,
-			"populacao_demografia": 11209,
-			"idade_0_14": 1280,
-			"idade_15_29": 1683,
-			"idade_30_59": 4871,
-			"idade_60_mais": 3359,
-			"populacao_idade_classificada": 11193,
-			"populacao_15_mais_alfabetizacao": 9908,
-			"alfabetizados_15_mais": 9828,
-			"taxa_alfabetizacao_15_mais_pct": 99.19,
-			"responsaveis_dpp_ocupados": 5292,
-			"renda_responsavel_media": 7220.24,
-			"renda_responsavel_mediana": 5000.0,
-			"renda_disponivel": true
-		}
-	]
+  "meta": {
+    "fonte": "IBGE — Censo Demográfico 2022",
+    "municipio": "Santos",
+    "uf": "SP",
+    "codigo_municipio_ibge": "3548500",
+    "nivel_territorial": "bairro",
+    "gerado_de_fontes_oficiais_em": "2026-10-07",
+    "contem_dados_pessoais": false,
+    "observacao": "Os dados caracterizam o território e não constituem, isoladamente, evidência de preferência ou demanda literária."
+  },
+  "cobertura": {
+    "bairros_total": 55,
+    "bairros_com_demografia": 55,
+    "bairros_com_alfabetizacao": 55,
+    "bairros_com_renda": 55,
+    "bairros_com_faixas_etarias_completas": 55,
+    "bairros_com_taxa_alfabetizacao": 55,
+    "bairros_sem_renda": 0
+  },
+  "validacao": {
+    "diferencas_total_basico_demografia": 8,
+    "diferencas_total_demografia_faixas_etarias": 22,
+    "renda_ausente_eh_zero": false
+  },
+  "bairros": [
+    {
+      "cd_bairro": "3548500001",
+      "bairro": "José Menino",
+      "area_km2": 0.6800466,
+      "populacao_total": 11209,
+      "populacao_demografia": 11209,
+      "idade_0_14": 1280,
+      "idade_15_29": 1683,
+      "idade_30_59": 4871,
+      "idade_60_mais": 3359,
+      "populacao_idade_classificada": 11193,
+      "populacao_15_mais_alfabetizacao": 9908,
+      "alfabetizados_15_mais": 9828,
+      "taxa_alfabetizacao_15_mais_pct": 99.19,
+      "responsaveis_dpp_ocupados": 5292,
+      "renda_responsavel_media": 7220.24,
+      "renda_responsavel_mediana": 5000.0,
+      "renda_disponivel": true
+    }
+  ]
 }
 ```
 
@@ -166,73 +174,73 @@ Filtros opcionais: `?codigo=<código IBGE>` e `?bairro=<trecho do nome>`.
 
 ```json
 {
-	"meta": {
-		"dataset": "Bibliotecas Conectadas — PI4 — Power BI",
-		"municipio": "Santos",
-		"codigo_municipio_ibge": "3548500",
-		"nivel_territorial": "bairro",
-		"contem_dados_pessoais": false,
-		"observacao": "Dataset agregado sem identificadores de leitores."
-	},
-	"periodo": {
-		"primeiro_emprestimo": null,
-		"ultimo_emprestimo": null,
-		"ultima_devolucao": null
-	},
-	"qualidade_ibge": {
-		"bairros_total": 55,
-		"bairros_com_renda": 55,
-		"bairros_sem_renda": 0,
-		"diferencas_total_basico_demografia": 8,
-		"diferencas_total_demografia_faixas_etarias": 22
-	},
-	"dim_bairro": [
-		{
-			"cd_bairro": "3548500001",
-			"bairro": "José Menino",
-			"area_km2": 0.6800466,
-			"populacao_total": 11209,
-			"populacao_demografia": 11209,
-			"idade_0_14": 1280,
-			"idade_15_29": 1683,
-			"idade_30_59": 4871,
-			"idade_60_mais": 3359,
-			"populacao_idade_classificada": 11193,
-			"populacao_15_mais_alfabetizacao": 9908,
-			"alfabetizados_15_mais": 9828,
-			"taxa_alfabetizacao_15_mais_pct": 99.19,
-			"responsaveis_dpp_ocupados": 5292,
-			"renda_responsavel_media": 7220.24,
-			"renda_responsavel_mediana": 5000.0,
-			"renda_disponivel": true
-		}
-	],
-	"dim_unidade": [
-		{
-			"unidade_id": 1,
-			"unidade": "Biblioteca Alberto Sousa",
-			"endereco": "Praça José Bonifácio, 58 – Centro, Santos/SP",
-			"ibge_bairro_codigo": "3548500017",
-			"ibge_bairro_nome": "Centro",
-			"latitude": null,
-			"longitude": null
-		}
-	],
-	"fato_acervo": [
-		{
-			"unidade_id": 1,
-			"ibge_bairro_codigo": "3548500017",
-			"genero": "Clássico",
-			"tipo_obra": "Livro",
-			"titulos": 7,
-			"exemplares": 19,
-			"emprestimos_abertos": 0,
-			"exemplares_disponiveis": 19
-		}
-	],
-	"fato_circulacao_mensal": [],
-	"fato_devolucoes_mensal": [],
-	"fato_titulos": []
+  "meta": {
+    "dataset": "Bibliotecas Conectadas — PI4 — Power BI",
+    "municipio": "Santos",
+    "codigo_municipio_ibge": "3548500",
+    "nivel_territorial": "bairro",
+    "contem_dados_pessoais": false,
+    "observacao": "Dataset agregado sem identificadores de leitores."
+  },
+  "periodo": {
+    "primeiro_emprestimo": null,
+    "ultimo_emprestimo": null,
+    "ultima_devolucao": null
+  },
+  "qualidade_ibge": {
+    "bairros_total": 55,
+    "bairros_com_renda": 55,
+    "bairros_sem_renda": 0,
+    "diferencas_total_basico_demografia": 8,
+    "diferencas_total_demografia_faixas_etarias": 22
+  },
+  "dim_bairro": [
+    {
+      "cd_bairro": "3548500001",
+      "bairro": "José Menino",
+      "area_km2": 0.6800466,
+      "populacao_total": 11209,
+      "populacao_demografia": 11209,
+      "idade_0_14": 1280,
+      "idade_15_29": 1683,
+      "idade_30_59": 4871,
+      "idade_60_mais": 3359,
+      "populacao_idade_classificada": 11193,
+      "populacao_15_mais_alfabetizacao": 9908,
+      "alfabetizados_15_mais": 9828,
+      "taxa_alfabetizacao_15_mais_pct": 99.19,
+      "responsaveis_dpp_ocupados": 5292,
+      "renda_responsavel_media": 7220.24,
+      "renda_responsavel_mediana": 5000.0,
+      "renda_disponivel": true
+    }
+  ],
+  "dim_unidade": [
+    {
+      "unidade_id": 1,
+      "unidade": "Biblioteca Alberto Sousa",
+      "endereco": "Praça José Bonifácio, 58 – Centro, Santos/SP",
+      "ibge_bairro_codigo": "3548500017",
+      "ibge_bairro_nome": "Centro",
+      "latitude": null,
+      "longitude": null
+    }
+  ],
+  "fato_acervo": [
+    {
+      "unidade_id": 1,
+      "ibge_bairro_codigo": "3548500017",
+      "genero": "Clássico",
+      "tipo_obra": "Livro",
+      "titulos": 7,
+      "exemplares": 19,
+      "emprestimos_abertos": 0,
+      "exemplares_disponiveis": 19
+    }
+  ],
+  "fato_circulacao_mensal": [],
+  "fato_devolucoes_mensal": [],
+  "fato_titulos": []
 }
 ```
 
@@ -263,101 +271,125 @@ JSON. Nenhuma tabela contém nome, e-mail ou documento de leitor.
 
 ```json
 {
-	"meta": {
-		"escopo": "indicadores agregados de livros e circulação",
-		"contem_dados_pessoais": false,
-		"filtros_aplicados": {
-			"unidade_id": null,
-			"genero_id": null,
-			"ano_inicio": null,
-			"ano_fim": null,
-			"circulacao_data_inicio": "2025-11-01",
-			"circulacao_data_fim": "2026-10-27"
-		},
-		"comparativo_circulacao_disponivel": true,
-		"periodo_circulacao": {
-			"data_inicio": "2025-11-01",
-			"data_fim": "2026-10-27"
-		},
-		"tendencia_de_cadastro_disponivel": false,
-		"reservas_disponiveis": false,
-		"observacao": "O modelo não registra a data de cadastro do livro nem reservas. A evolução e a comparação apresentadas são de empréstimos e devoluções; a distribuição temporal do acervo usa a data de publicação."
-	},
-	"indicadores": {
-		"titulos": 100,
-		"autores_distintos": 77,
-		"categorias": 24,
-		"unidades_com_acervo": 6,
-		"exemplares": 965,
-		"emprestimos_abertos": 0
-	},
-	"situacao_exemplares": {
-		"total": 965,
-		"emprestados": 0,
-		"disponiveis": 965,
-		"reservados": null
-	},
-	"acervo_por_categoria": [
-		{"genero_id": 8, "categoria": "Ciência", "titulos": 1, "exemplares": 13}
-	],
-	"acervo_por_unidade": [
-		{"unidade_id": 1, "unidade": "Biblioteca Alberto Sousa", "titulos": 49, "exemplares": 170}
-	],
-	"top_autores": [{"autor": "Agatha Christie", "titulos": 3}],
-	"publicacoes_por_decada": [
-		{"ano_inicio": 1840, "ano_fim": 1849, "faixa": "1840-1849", "titulos": 1}
-	],
-	"titulos_sem_data_publicacao": 3,
-	"qualidade_acervo": {
-		"titulos_total": 100,
-		"campos_avaliados_por_titulo": 6,
-		"percentual_campos_preenchidos": 98.3,
-		"titulos_sem_autor": 0,
-		"titulos_sem_categoria": 0,
-		"titulos_sem_data_publicacao": 3,
-		"titulos_sem_isbn": 0,
-		"titulos_sem_capa": 7,
-		"titulos_sem_unidade": 0
-	},
-	"insights_acervo": {
-		"base_calculo": "títulos com categoria informada",
-		"titulos_categorizados": 100,
-		"categoria_mais_representada": {
-			"genero_id": 18,
-			"categoria": "Clássico",
-			"titulos": 14,
-			"participacao_percentual": 14.0
-		},
-		"categoria_menor_representacao": {
-			"genero_id": 8,
-			"categoria": "Ciência",
-			"titulos": 1,
-			"participacao_percentual": 1.0
-		}
-	},
-	"livros_em_destaque": [],
-	"circulacao_mensal": [
-		{"mes": "2025-11", "emprestimos_iniciados": 0, "devolucoes": 0}
-	],
-	"comparativo_circulacao": {
-		"periodo_atual": {
-			"data_inicio": "2025-11-01",
-			"data_fim": "2026-10-27",
-			"emprestimos_iniciados": 0,
-			"devolucoes": 0
-		},
-		"periodo_anterior": {
-			"data_inicio": "2024-11-05",
-			"data_fim": "2025-10-31",
-			"emprestimos_iniciados": 0,
-			"devolucoes": 0
-		},
-		"variacao_percentual": {
-			"emprestimos_iniciados": null,
-			"devolucoes": null
-		}
-	},
-	"emprestimos_recentes": []
+  "meta": {
+    "escopo": "indicadores agregados de livros e circulação",
+    "contem_dados_pessoais": false,
+    "filtros_aplicados": {
+      "unidade_id": null,
+      "genero_id": null,
+      "ano_inicio": null,
+      "ano_fim": null,
+      "circulacao_data_inicio": "2025-11-01",
+      "circulacao_data_fim": "2026-10-27"
+    },
+    "comparativo_circulacao_disponivel": true,
+    "periodo_circulacao": {
+      "data_inicio": "2025-11-01",
+      "data_fim": "2026-10-27"
+    },
+    "tendencia_de_cadastro_disponivel": false,
+    "reservas_disponiveis": false,
+    "observacao": "O modelo não registra a data de cadastro do livro nem reservas. A evolução e a comparação apresentadas são de empréstimos e devoluções; a distribuição temporal do acervo usa a data de publicação."
+  },
+  "indicadores": {
+    "titulos": 100,
+    "autores_distintos": 77,
+    "categorias": 24,
+    "unidades_com_acervo": 6,
+    "exemplares": 965,
+    "emprestimos_abertos": 0
+  },
+  "situacao_exemplares": {
+    "total": 965,
+    "emprestados": 0,
+    "disponiveis": 965,
+    "reservados": null
+  },
+  "acervo_por_categoria": [
+    {
+      "genero_id": 8,
+      "categoria": "Ciência",
+      "titulos": 1,
+      "exemplares": 13
+    }
+  ],
+  "acervo_por_unidade": [
+    {
+      "unidade_id": 1,
+      "unidade": "Biblioteca Alberto Sousa",
+      "titulos": 49,
+      "exemplares": 170
+    }
+  ],
+  "top_autores": [
+    {
+      "autor": "Agatha Christie",
+      "titulos": 3
+    }
+  ],
+  "publicacoes_por_decada": [
+    {
+      "ano_inicio": 1840,
+      "ano_fim": 1849,
+      "faixa": "1840-1849",
+      "titulos": 1
+    }
+  ],
+  "titulos_sem_data_publicacao": 3,
+  "qualidade_acervo": {
+    "titulos_total": 100,
+    "campos_avaliados_por_titulo": 6,
+    "percentual_campos_preenchidos": 98.3,
+    "titulos_sem_autor": 0,
+    "titulos_sem_categoria": 0,
+    "titulos_sem_data_publicacao": 3,
+    "titulos_sem_isbn": 0,
+    "titulos_sem_capa": 7,
+    "titulos_sem_unidade": 0
+  },
+  "insights_acervo": {
+    "base_calculo": "títulos com categoria informada",
+    "titulos_categorizados": 100,
+    "categoria_mais_representada": {
+      "genero_id": 18,
+      "categoria": "Clássico",
+      "titulos": 14,
+      "participacao_percentual": 14.0
+    },
+    "categoria_menor_representacao": {
+      "genero_id": 8,
+      "categoria": "Ciência",
+      "titulos": 1,
+      "participacao_percentual": 1.0
+    }
+  },
+  "livros_em_destaque": [],
+  "circulacao_mensal": [
+    {
+      "mes": "2025-11",
+      "emprestimos_iniciados": 0,
+      "devolucoes": 0
+    }
+  ],
+  "comparativo_circulacao": {
+    "periodo_atual": {
+      "data_inicio": "2025-11-01",
+      "data_fim": "2026-10-27",
+      "emprestimos_iniciados": 0,
+      "devolucoes": 0
+    },
+    "periodo_anterior": {
+      "data_inicio": "2024-11-05",
+      "data_fim": "2025-10-31",
+      "emprestimos_iniciados": 0,
+      "devolucoes": 0
+    },
+    "variacao_percentual": {
+      "emprestimos_iniciados": null,
+      "devolucoes": null
+    }
+  },
+  "emprestimos_recentes": []
 }
 ```
 
@@ -388,9 +420,22 @@ Campos dos objetos das listas: `acervo_por_categoria` contém `genero_id`, `cate
 
 ```json
 {
-	"unidades": [{"id": 1, "nome": "Biblioteca Alberto Sousa"}],
-	"categorias": [{"id": 6, "nome": "Biografia"}],
-	"anos_publicacao": {"inicio": 1847, "fim": 2026}
+  "unidades": [
+    {
+      "id": 1,
+      "nome": "Biblioteca Alberto Sousa"
+    }
+  ],
+  "categorias": [
+    {
+      "id": 6,
+      "nome": "Biografia"
+    }
+  ],
+  "anos_publicacao": {
+    "inicio": 1847,
+    "fim": 2026
+  }
 }
 ```
 
