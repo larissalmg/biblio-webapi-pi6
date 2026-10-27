@@ -10,6 +10,14 @@ as rotas protegidas usando o token recebido.
 - API em execução e acessível pela máquina. Com a configuração Docker deste projeto, a URL padrão é `http://localhost:8000`.
 - Usuário e senha válidos para acessar a API.
 
+## Criar conta administrativa
+
+Na raiz do repositório, crie a conta usada pelo smoke test:
+
+```bash
+python manage.py createsuperuser
+```
+
 ## Como executar
 
 Na raiz do repositório, rode:
