@@ -15,7 +15,7 @@ as rotas protegidas usando o token recebido.
 Na raiz do repositório, rode:
 
 ```bash
-python3 -m src.tests.test_api_routes
+python3 -m tests_route.test_api_routes
 ```
 
 O script solicitará o usuário e a senha. A senha é digitada sem aparecer na tela e não é gravada pelo script.
@@ -23,13 +23,13 @@ O script solicitará o usuário e a senha. A senha é digitada sem aparecer na t
 Para usar outra URL base:
 
 ```bash
-python3 -m src.tests.test_api_routes --base-url http://localhost:8000
+python3 -m tests_route.test_api_routes --base-url http://localhost:8000
 ```
 
 Também é possível consultar as opções com:
 
 ```bash
-python3 -m src.tests.test_api_routes --help
+python3 -m tests_route.test_api_routes --help
 ```
 
 ## Rotas verificadas
