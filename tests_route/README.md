@@ -34,23 +34,22 @@ python3 -m tests_route.test_api_routes --help
 
 ## Rotas verificadas
 
-Após autenticar, o script consulta:
+Antes do login, o script verifica `GET /`, `GET /healthz` e `GET /admin/`. Após
+autenticar, verifica:
 
-- `GET /gestor/livros/`
-- `GET /gestor/unidades/`
-- `GET /gestor/livro-unidades/`
-- `GET /gestor/usuarios/`
-- `GET /gestor/emprestimos/`
+- `GET /api/schema/`, `GET /api/docs/` e `GET /api/redoc/`
+- `GET /gestor/` e `GET /gestor/auth/me/`
+- `GET /gestor/livros/`, `/gestor/unidades/`, `/gestor/livro-unidades/`, `/gestor/usuarios/` e `/gestor/emprestimos/`
+- `GET /gestor/acessos/`, somente quando a conta autenticada é administradora
 - `GET /gestor/dados-iniciais/`
-- `GET /gestor/analytics/resumo/`
-- `GET /gestor/analytics/territorio/`
-- `GET /gestor/analytics/powerbi/`
-- `GET /gestor/analytics/gestao-livros/`
-- `GET /gestor/analytics/gestao-livros/filtros/`
+- `GET /gestor/analytics/resumo/`, `/gestor/analytics/territorio/`, `/gestor/analytics/powerbi/`, `/gestor/analytics/gestao-livros/` e `/gestor/analytics/gestao-livros/filtros/`
+- `GET /gestor/livros/isbn-lookup/?isbn=1234567890123`, verificando a rejeição de entrada sem chamar o serviço externo
+- `POST /gestor/auth/change-password/` com payload vazio, verificando a validação sem alterar a senha
+- `POST /gestor/auth/logout/`, executado por último para invalidar o token após os demais checks
 
-O resultado informa se cada chamada teve sucesso e mostra contagens, sem imprimir
-os registros de usuários ou empréstimos. As rotas de analytics são chamadas somente
-depois da autenticação bem-sucedida.
+Para cada coleção com registros, também consulta o detalhe do primeiro item. O resultado
+mostra status e contagens sem imprimir registros de usuários ou empréstimos. Operações
+de criação, edição, exclusão e reset de senha não são executadas pelo smoke test.
 
 ## Estrutura JSON das rotas analíticas
 
