@@ -208,7 +208,32 @@ GET /gestor/livros/isbn-lookup/?isbn={isbn}
 GET /gestor/analytics/resumo/        indicadores operacionais agregados
 GET /gestor/analytics/territorio/    indicadores territoriais do IBGE (Santos/SP)
 GET /gestor/analytics/powerbi/       dataset agregado, sem identificadores pessoais
+GET /gestor/analytics/gestao-livros/ dashboard agregada de acervo e circulação
+GET /gestor/analytics/gestao-livros/filtros/ opções para os filtros da dashboard
 ```
+
+As duas rotas de gestão de livros exigem autenticação por token. A rota principal
+aceita filtros opcionais:
+
+| Parâmetro | Descrição |
+|---|---|
+| `unidade_id` | ID da unidade/biblioteca |
+| `genero_id` | ID da categoria/gênero |
+| `ano_inicio` | Ano inicial de publicação, inclusive |
+| `ano_fim` | Ano final de publicação, inclusive |
+
+Exemplo: `GET /gestor/analytics/gestao-livros/?unidade_id=1&genero_id=2&ano_inicio=2000&ano_fim=2025`.
+
+A resposta reúne indicadores gerais, situação dos exemplares, acervo por categoria
+e unidade, principais autores, publicações por década, circulação mensal dos últimos
+12 meses e empréstimos recentes sem dados de identificação do leitor. A rota
+`/filtros/` retorna as unidades, categorias e intervalo de anos de publicação
+disponíveis.
+
+O modelo atual não registra a data em que cada livro foi cadastrado nem reservas.
+Por isso, a evolução temporal é apresentada como circulação de empréstimos e
+devoluções, a distribuição temporal usa o ano de publicação e a quantidade reservada
+é retornada como `null`, não estimada.
 
 ---
 

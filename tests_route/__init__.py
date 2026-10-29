@@ -1,0 +1,1 @@
+"""Smoke tests and test utilities for the project."""
